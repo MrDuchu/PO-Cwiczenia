@@ -7,18 +7,18 @@ List::~List()
 
 }
 
-List::Node* List::find(const size_t index)
+List::Node* List::find(const std::size_t index)
 {
 	List::Node* it = first;
 
-	for (size_t i = 0; i < index; i++)
+	for (std::size_t i = 0; i < index; i++)
 	{
 		it = it->next;
 	}
 	return it;
 }
 
-void List::push(const Point& point, const size_t index)
+void List::push(const Point& point, const std::size_t index)
 {
 	List::Node* node = new List::Node(point);
 	if (index == 0) 
@@ -35,7 +35,7 @@ void List::push(const Point& point, const size_t index)
 	size++;
 }
 
-void List::pop(const size_t index)
+void List::pop(const std::size_t index)
 {
 	if (index == 0) 
 	{
@@ -59,7 +59,53 @@ Error List::push_back(const Point& point)
 	return Error::SUCCES;
 }
 
-int List::get_size()
+Error List::pop_back()
+{
+	if (size == 0) {
+		return Error::LIST_EMPTY;
+	}
+	else
+	{
+		pop(size);
+		return Error::SUCCES;
+	}
+}
+
+Error List::find(Point& result, const std::size_t index) 
+{
+	if (size == 0)
+	{
+		return Error::LIST_EMPTY;
+	}
+	else if (index > size) 
+	{
+		return Error::OUT_OF_BOUNDS;
+	}
+	else
+	{
+		result = find(index)->point;
+		return Error::SUCCES;
+	}
+}
+
+Error List::insert(const Point& newPoint, const std::size_t index)
+{
+	if (size == 0)
+	{
+		return Error::LIST_EMPTY;
+	}
+	else if (index > size)
+	{
+		return Error::OUT_OF_BOUNDS;
+	}
+	else
+	{
+		push(newPoint,index);
+		return Error::SUCCES;
+	}
+}
+
+std::size_t List::get_size()
 {
 	return size;
 }

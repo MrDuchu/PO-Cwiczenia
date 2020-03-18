@@ -1,5 +1,6 @@
 #pragma once
 #include "Point.h"
+#include <iostream>
 
 enum Error
 {
@@ -21,16 +22,19 @@ private:
 	Node* first;
 	size_t size;
 
-	Node* find(const size_t index);
-	void pop(const size_t index);
-	void push(const Point& point, const size_t index);
+	Node* find(const std::size_t index);
+	void pop(const std::size_t index);
+	void push(const Point& point, const std::size_t index);
 
 
 public:
 	List();
 	~List();
 
+	Error pop_back();
 	Error push_back(const Point& point);
+	Error find(Point& result, const std::size_t index);
+	Error insert(const Point& newPoint, const std::size_t index);
 
-	int get_size();
+	std::size_t get_size();
 };
